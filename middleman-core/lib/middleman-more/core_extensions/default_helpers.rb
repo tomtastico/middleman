@@ -21,15 +21,15 @@ class Middleman::CoreExtensions::DefaultHelpers < ::Middleman::Extension
 
     require 'active_support/core_ext/object/to_query'
 
-    app.helpers ::Padrino::Helpers::OutputHelpers
-    app.helpers ::Padrino::Helpers::TagHelpers
-    app.helpers ::Padrino::Helpers::AssetTagHelpers
-    app.helpers ::Padrino::Helpers::FormHelpers
-    app.helpers ::Padrino::Helpers::FormatHelpers
-    app.helpers ::Padrino::Helpers::RenderHelpers
-    app.helpers ::Padrino::Helpers::NumberHelpers
-    # app.helpers ::Padrino::Helpers::TranslationHelpers
-    app.helpers ::Padrino::Helpers::Breadcrumbs
+    ::Middleman::TemplateContext.send :include, ::Padrino::Helpers::OutputHelpers
+    ::Middleman::TemplateContext.send :include, ::Padrino::Helpers::TagHelpers
+    ::Middleman::TemplateContext.send :include, ::Padrino::Helpers::AssetTagHelpers
+    ::Middleman::TemplateContext.send :include, ::Padrino::Helpers::FormHelpers
+    ::Middleman::TemplateContext.send :include, ::Padrino::Helpers::FormatHelpers
+    ::Middleman::TemplateContext.send :include, ::Padrino::Helpers::RenderHelpers
+    ::Middleman::TemplateContext.send :include, ::Padrino::Helpers::NumberHelpers
+    # ::Middleman::TemplateContext.send :include, ::Padrino::Helpers::TranslationHelpers
+    ::Middleman::TemplateContext.send :include, ::Padrino::Helpers::Breadcrumbs
 
     app.config.define_setting :relative_links, false, 'Whether to generate relative links instead of absolute ones'
   end
@@ -197,7 +197,7 @@ class Middleman::CoreExtensions::DefaultHelpers < ::Middleman::Extension
       options_with_resource = options.dup
       options_with_resource[:current_resource] ||= current_resource
 
-      ::Middleman::Util.url_for(self, path_or_resource, options_with_resource)
+      ::Middleman::Util.url_for(app, path_or_resource, options_with_resource)
     end
 
     # Overload the regular link_to to be sitemap-aware - if you

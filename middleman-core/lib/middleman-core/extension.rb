@@ -20,7 +20,7 @@ module Middleman
       def helpers(*m, &block)
         self.defined_helpers ||= []
 
-        if block
+        if block_given?
           mod = Module.new
           mod.module_eval(&block)
           m = [mod]
@@ -80,10 +80,6 @@ module Middleman
 
     def app=(app)
       @app = app
-
-      (self.class.defined_helpers || []).each do |m|
-        app.class.send(:include, m)
-      end
     end
 
   protected
