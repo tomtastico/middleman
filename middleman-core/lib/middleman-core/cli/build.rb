@@ -237,7 +237,7 @@ module Middleman::Cli
       if resource.binary?
         if !output_file.exist?
           base.say_status :create, output_file, :green
-        elsif FileUtils.compare_file(resource.source_file, output_file) || FileUtils.uptodate?(output_file, [resource.source_file])
+        elsif FileUtils.uptodate?(output_file, [resource.source_file]) #|| FileUtils.compare_file(resource.source_file, output_file)
           base.say_status :identical, output_file, :blue
           return output_file
         else
